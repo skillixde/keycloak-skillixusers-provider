@@ -1,0 +1,31 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'de.skillix'
+version = '0.0.1-SNAPSHOT'
+description = 'keycloak-custom-providers'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.keycloak:keycloak-core:16.1.0'
+	implementation 'org.keycloak:keycloak-server-spi:16.1.0'
+	implementation 'org.keycloak:keycloak-server-spi-private'
+	implementation 'org.keycloak:keycloak-services'
+	implementation 'org.projectlombok:lombok'
+	implementation 'org.slf4j:slf4j-api:1.7.30'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.h2database:h2:1.4.200'
+	testImplementation 'io.rest-assured:rest-assured:3.3.0'
+	testImplementation 'org.slf4j:slf4j-log4j12'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
