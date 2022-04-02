@@ -1,4 +1,4 @@
-package de.skillix.auth.provider.user;
+package de.skillix.keycloak.spi.userstorage;
 
 public final class SkillixUserStorageProviderConstants {
     public static final String CONFIG_KEY_JDBC_DRIVER = "jdbcDriver";
