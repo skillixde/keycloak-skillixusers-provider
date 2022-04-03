@@ -98,6 +98,7 @@ public class SkillixUserProvider
         .email(apiResponse.getEmail())
         .firstName(apiResponse.getFirstName())
         .lastName(apiResponse.getLastName())
+        .company(apiResponse.getCompany())
         .roles(apiResponse.getRoles())
         .isEmailVerified(apiResponse.isEmailVerified())
         .enabled(apiResponse.isEnabled())

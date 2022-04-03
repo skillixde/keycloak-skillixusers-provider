@@ -5,47 +5,60 @@ import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
+import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 class SkillixUserAdapter extends AbstractUserAdapter.Streams {
 
-  private final String uuid;
-  private final String email;
-  private final String firstName;
-  private final String lastName;
-  private final List<String> roles;
-  private final boolean emailVerified;
-  private final boolean enabled;
+  private final SkillixUser skillixUser;
 
-  public SkillixUserAdapter(
+  private SkillixUserAdapter(
       KeycloakSession session,
       RealmModel realm,
-      ComponentModel storageProviderModel,
-      String uuid,
-      String email,
-      String firstName,
-      String lastName,
-      List<String> roles,
-      boolean emailVerified,
-      boolean enabled) {
-    super(session, realm, storageProviderModel);
-    this.uuid = uuid;
-    this.email = email;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.roles = roles;
-    this.emailVerified = emailVerified;
-    this.enabled = enabled;
+      ComponentModel model,
+      SkillixUser skillixUser) {
+    super(session, realm, model);
+    this.skillixUser = skillixUser;
   }
 
   @Override
   public String getUsername() {
-    return uuid;
+    return skillixUser.getUuid();
+  }
+
+  public String getEmail() {
+    return skillixUser.getEmail();
+  }
+
+  public String getFirstName() {
+    return skillixUser.getFirstName();
+  }
+
+  public String getLastName() {
+    return skillixUser.getLastName();
+  }
+
+  public boolean isEmailVerified() {
+    return skillixUser.isEmailVerified();
+  }
+
+  public boolean isEnabled() {
+    return skillixUser.isEnabled();
+  }
+
+  public List<String> getRoles() {
+    return skillixUser.getRoles();
+  }
+
+  public String getCompany() {
+    return skillixUser.getCompany();
   }
 
   @Override
@@ -58,65 +71,74 @@ class SkillixUserAdapter extends AbstractUserAdapter.Streams {
     attributes.add(UserModel.EMAIL_VERIFIED, String.valueOf(isEmailVerified()));
     attributes.add(UserModel.ENABLED, String.valueOf(isEnabled()));
     attributes.add("roles", String.join(",", getRoles()));
+    attributes.add("company", getCompany());
     return attributes;
+  }
+
+  @Override
+  protected Set<RoleModel> getRoleMappingsInternal() {
+    if (skillixUser.getRoles() != null) {
+      return skillixUser.getRoles().stream()
+              .map(roleName -> new SkillixRoleModel(roleName, realm)).collect(Collectors.toSet());
+    }
+    return Set.of();
   }
 
   static class Builder {
     private final KeycloakSession session;
     private final RealmModel realm;
-    private final ComponentModel storageProviderModel;
-    private final String uuid;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private List<String> roles;
-    private boolean emailVerified;
-    private boolean enabled;
+    private final ComponentModel model;
+    private final SkillixUser skillixUser;
 
     Builder(
         KeycloakSession session,
         RealmModel realm,
-        ComponentModel storageProviderModel,
-        String uuid) {
+        ComponentModel model,
+        String username) {
       this.session = session;
       this.realm = realm;
-      this.storageProviderModel = storageProviderModel;
-      this.uuid = uuid;
+      this.model = model;
+      skillixUser = new SkillixUser(username);
     }
 
     SkillixUserAdapter.Builder email(String email) {
-      this.email = email;
+      this.skillixUser.setEmail(email);
       return this;
     }
 
     SkillixUserAdapter.Builder firstName(String firstName) {
-      this.firstName = firstName;
+      this.skillixUser.setFirstName(firstName);
       return this;
     }
 
     SkillixUserAdapter.Builder lastName(String lastName) {
-      this.lastName = lastName;
+      this.skillixUser.setLastName(lastName);
+      return this;
+    }
+
+    SkillixUserAdapter.Builder company(String company) {
+      this.skillixUser.setCompany(company);
       return this;
     }
 
     SkillixUserAdapter.Builder roles(List<String> roles) {
-      this.roles = roles;
+      this.skillixUser.setRoles(roles);
       return this;
     }
 
     SkillixUserAdapter.Builder isEmailVerified(boolean emailVerified) {
-      this.emailVerified = emailVerified;
+      this.skillixUser.setEmailVerified(emailVerified);
       return this;
     }
 
     SkillixUserAdapter.Builder enabled(boolean enabled) {
-      this.enabled = enabled;
+      this.skillixUser.setEnabled(enabled);
       return this;
     }
 
     SkillixUserAdapter build() {
-      return new SkillixUserAdapter(
-          session, realm, storageProviderModel, uuid, email, firstName, lastName, roles, emailVerified, enabled);
+      return new SkillixUserAdapter(session, realm, model, skillixUser);
     }
+
   }
 }

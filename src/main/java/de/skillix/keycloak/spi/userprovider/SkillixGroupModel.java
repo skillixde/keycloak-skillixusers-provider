@@ -1,42 +1,48 @@
 package de.skillix.keycloak.spi.userprovider;
 
+import lombok.RequiredArgsConstructor;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.GroupModel;
 import org.keycloak.models.RoleModel;
+import org.keycloak.storage.ReadOnlyException;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Stream;
 
-public class SkillixGroupModel implements GroupModel {
+@RequiredArgsConstructor
+public class SkillixGroupModel implements GroupModel.Streams {
+
+    private final String name;
+
     @Override
     public String getId() {
-        return null;
+        return name;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
     public void setSingleAttribute(String name, String value) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
     public void setAttribute(String name, List<String> values) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
     public void removeAttribute(String name) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
@@ -45,7 +51,7 @@ public class SkillixGroupModel implements GroupModel {
     }
 
     @Override
-    public List<String> getAttribute(String name) {
+    public Stream<String> getAttributeStream(String name) {
         return null;
     }
 
@@ -65,32 +71,32 @@ public class SkillixGroupModel implements GroupModel {
     }
 
     @Override
-    public Set<GroupModel> getSubGroups() {
+    public Stream<GroupModel> getSubGroupsStream() {
         return null;
     }
 
     @Override
     public void setParent(GroupModel group) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
     public void addChild(GroupModel subGroup) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
     public void removeChild(GroupModel subGroup) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
-    public Set<RoleModel> getRealmRoleMappings() {
+    public Stream<RoleModel> getRealmRoleMappingsStream() {
         return null;
     }
 
     @Override
-    public Set<RoleModel> getClientRoleMappings(ClientModel app) {
+    public Stream<RoleModel> getClientRoleMappingsStream(ClientModel app) {
         return null;
     }
 
@@ -101,16 +107,16 @@ public class SkillixGroupModel implements GroupModel {
 
     @Override
     public void grantRole(RoleModel role) {
-
+        throw new ReadOnlyException("group is read only");
     }
 
     @Override
-    public Set<RoleModel> getRoleMappings() {
+    public Stream<RoleModel> getRoleMappingsStream() {
         return null;
     }
 
     @Override
     public void deleteRoleMapping(RoleModel role) {
-
+        throw new ReadOnlyException("group is read only");
     }
 }

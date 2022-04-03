@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-04-03T00:49:12" hostname="macbookpro.local" time="0.037">
+<testsuite name="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2022-04-03T14:52:34" hostname="macbookpro.local" time="0.125">
   <properties/>
-  <testcase name="testParseQueryParamsFromEmptySearchAndMaxResults()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.024"/>
-  <testcase name="testParseQueryParamsFromNothing()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.0"/>
+  <testcase name="testParseQueryParamsFromEmptySearchAndMaxResults()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.03"/>
+  <testcase name="testParseQueryParamsFromNothing()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
   <testcase name="testParseQueryParamsFromEmptySearchFirstResultAndMaxResults()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
-  <testcase name="testParseQueryParamsFromEmptySearchAndFirstResult()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
+  <testcase name="testParseQueryParamsFromEmptySearchAndFirstResult()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.0"/>
+  <testcase name="[1] https://api.skillix.dev, 0, a231-1902-0913f" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.02"/>
+  <testcase name="[2] https://api.skillix.de, 1, info@mail.com" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
   <testcase name="testParseQueryParamsFromKeyValueToString()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
-  <testcase name="testParseQueryParamsFromMapToString()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.003"/>
+  <testcase name="testParseQueryParamsFromMapToString()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
   <testcase name="testParseQueryParamsFromSearchFirstResultAndMaxResults()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
-  <testcase name="testParseQueryParamsFromMaxResults()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
+  <testcase name="testParseQueryParamsFromMaxResults()" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.0"/>
+  <testcase name="[1] https://api.skillix.dev, 0, offset=100&amp;size=50" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
+  <testcase name="[2] https://api.skillix.de, 1, offset=100&amp;size=50" classname="de.skillix.keycloak.spi.userprovider.QueryParamUtilsTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
