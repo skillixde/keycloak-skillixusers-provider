@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class SkillixUserApiResponse {
+public class SkillixUser {
     private String uuid;
     private String email;
     private String firstName;

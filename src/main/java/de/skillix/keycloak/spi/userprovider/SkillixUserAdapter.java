@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-class SkillixUserModel extends AbstractUserAdapter.Streams {
+class SkillixUserAdapter extends AbstractUserAdapter.Streams {
 
   private final String uuid;
   private final String email;
@@ -22,7 +22,7 @@ class SkillixUserModel extends AbstractUserAdapter.Streams {
   private final boolean emailVerified;
   private final boolean enabled;
 
-  public SkillixUserModel(
+  public SkillixUserAdapter(
       KeycloakSession session,
       RealmModel realm,
       ComponentModel storageProviderModel,
@@ -84,38 +84,38 @@ class SkillixUserModel extends AbstractUserAdapter.Streams {
       this.uuid = uuid;
     }
 
-    SkillixUserModel.Builder email(String email) {
+    SkillixUserAdapter.Builder email(String email) {
       this.email = email;
       return this;
     }
 
-    SkillixUserModel.Builder firstName(String firstName) {
+    SkillixUserAdapter.Builder firstName(String firstName) {
       this.firstName = firstName;
       return this;
     }
 
-    SkillixUserModel.Builder lastName(String lastName) {
+    SkillixUserAdapter.Builder lastName(String lastName) {
       this.lastName = lastName;
       return this;
     }
 
-    SkillixUserModel.Builder roles(List<String> roles) {
+    SkillixUserAdapter.Builder roles(List<String> roles) {
       this.roles = roles;
       return this;
     }
 
-    SkillixUserModel.Builder isEmailVerified(boolean emailVerified) {
+    SkillixUserAdapter.Builder isEmailVerified(boolean emailVerified) {
       this.emailVerified = emailVerified;
       return this;
     }
 
-    SkillixUserModel.Builder enabled(boolean enabled) {
+    SkillixUserAdapter.Builder enabled(boolean enabled) {
       this.enabled = enabled;
       return this;
     }
 
-    SkillixUserModel build() {
-      return new SkillixUserModel(
+    SkillixUserAdapter build() {
+      return new SkillixUserAdapter(
           session, realm, storageProviderModel, uuid, email, firstName, lastName, roles, emailVerified, enabled);
     }
   }

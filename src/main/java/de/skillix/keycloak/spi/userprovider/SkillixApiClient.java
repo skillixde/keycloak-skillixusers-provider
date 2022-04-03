@@ -4,8 +4,7 @@ import java.util.List;
 
 public interface SkillixApiClient {
 
-  SkillixUserApiResponse getSkillixProfileByIdentity(String identity);
+  SkillixUser getSkillixProfileByIdentity(String identity);
 
-  List<SkillixUserApiResponse> searchSkillixProfiles(String queryParams);
-
+  List<SkillixUser> searchSkillixProfiles(String queryParams);
 }

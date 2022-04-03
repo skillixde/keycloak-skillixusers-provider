@@ -33,7 +33,7 @@ public class SkillixUserProvider
   public SkillixUserProvider(KeycloakSession session, ComponentModel model) {
     this.session = session;
     this.model = model;
-    this.apiClient = new DefaultSkillixApiClient(session, model);
+    this.apiClient = new SkillixApiClientImpl(session, model);
   }
 
   @Override
@@ -93,26 +93,27 @@ public class SkillixUserProvider
     return Stream.empty();
   }
 
-  private UserModel mapToUserModel(RealmModel realm, SkillixUserApiResponse apiResponse) {
-    return new SkillixUserModel.Builder(session, realm, model, apiResponse.getUuid())
+  private UserModel mapToUserModel(RealmModel realm, SkillixUser apiResponse) {
+    return new SkillixUserAdapter.Builder(session, realm, model, apiResponse.getUuid())
         .email(apiResponse.getEmail())
         .firstName(apiResponse.getFirstName())
         .lastName(apiResponse.getLastName())
         .roles(apiResponse.getRoles())
         .isEmailVerified(apiResponse.isEmailVerified())
+        .enabled(apiResponse.isEnabled())
         .build();
   }
 
   @SneakyThrows
   private UserModel getSkillixUserModelByIdentity(RealmModel realm, String identity) {
-    SkillixUserApiResponse profile = apiClient.getSkillixProfileByIdentity(identity);
+    SkillixUser profile = apiClient.getSkillixProfileByIdentity(identity);
     if (profile == null) return null;
     return mapToUserModel(realm, profile);
   }
 
   @SneakyThrows
   private Stream<UserModel> searchSkillixUserModelStream(RealmModel realm, String queryParams) {
-    List<SkillixUserApiResponse> profiles = apiClient.searchSkillixProfiles(queryParams);
+    List<SkillixUser> profiles = apiClient.searchSkillixProfiles(queryParams);
     if (profiles == null || profiles.isEmpty()) return null;
     return profiles.stream().map(profile -> mapToUserModel(realm, profile));
   }

@@ -12,14 +12,14 @@ import org.keycloak.models.KeycloakSession;
 import javax.ws.rs.WebApplicationException;
 import java.util.List;
 
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.PASSWORD_BASICAUTH_KEY;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.BASE_URL_KEY;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.SKILLIX_API_VERSION_KEY;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.USERNAME_BASICAUTH_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.PASSWORD_BASICAUTH_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.BASE_URL_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.USERNAME_BASICAUTH_KEY;
 import static org.keycloak.broker.provider.util.SimpleHttp.*;
 
 @Slf4j
-public class DefaultSkillixApiClient implements SkillixApiClient {
+public class SkillixApiClientImpl implements SkillixApiClient {
 
     private static final String SKILLIX_GET_PROFILE_API_PATTERN = "%s/v%s/profiles/%s";
     private static final String SKILLIX_SEARCH_PROFILES_API_PATTERN = "%s/v%s/profiles?%s";
@@ -30,7 +30,7 @@ public class DefaultSkillixApiClient implements SkillixApiClient {
     private final String basicUsername;
     private final String basicPassword;
 
-    public DefaultSkillixApiClient(KeycloakSession session, ComponentModel model){
+    public SkillixApiClientImpl(KeycloakSession session, ComponentModel model){
         this.httpClient = session.getProvider(HttpClientProvider.class).getHttpClient();
         this.baseUrl = model.get(BASE_URL_KEY);
         this.apiVersion = model.get(SKILLIX_API_VERSION_KEY);
@@ -40,14 +40,14 @@ public class DefaultSkillixApiClient implements SkillixApiClient {
 
     @Override
     @SneakyThrows
-    public SkillixUserApiResponse getSkillixProfileByIdentity(String identity) {
+    public SkillixUser getSkillixProfileByIdentity(String identity) {
         String requestUrl = String.format(SKILLIX_GET_PROFILE_API_PATTERN, baseUrl, apiVersion, identity);
-        return executeHttpGetRequest(requestUrl).asJson(SkillixUserApiResponse.class);
+        return executeHttpGetRequest(requestUrl).asJson(SkillixUser.class);
     }
 
     @Override
     @SneakyThrows
-    public List<SkillixUserApiResponse> searchSkillixProfiles(String queryParams) {
+    public List<SkillixUser> searchSkillixProfiles(String queryParams) {
         String requestUrl = String.format(SKILLIX_SEARCH_PROFILES_API_PATTERN, baseUrl, apiVersion, queryParams);
         return executeHttpGetRequest(requestUrl).asJson(new TypeReference<>() {});
     }

@@ -12,13 +12,13 @@ import org.keycloak.storage.UserStorageProviderFactory;
 import java.util.Collections;
 import java.util.List;
 
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.BASE_URL;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.BASE_URL_KEY;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.PASSWORD_BASICAUTH_KEY;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.PROVIDER_ID;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.SKILLIX_API_VERSION;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.SKILLIX_API_VERSION_KEY;
-import static de.skillix.keycloak.spi.userprovider.SkillixConstants.USERNAME_BASICAUTH_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.BASE_URL;
+import static de.skillix.keycloak.spi.userprovider.Constants.BASE_URL_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.PASSWORD_BASICAUTH_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.PROVIDER_ID;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.USERNAME_BASICAUTH_KEY;
 
 public class SkillixUserProviderFactory implements UserStorageProviderFactory<SkillixUserProvider> {
 
