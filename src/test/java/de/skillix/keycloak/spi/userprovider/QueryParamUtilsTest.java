@@ -1,4 +1,4 @@
-package de.skillix.keycloak.spi.userstorage;
+package de.skillix.keycloak.spi.userprovider;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

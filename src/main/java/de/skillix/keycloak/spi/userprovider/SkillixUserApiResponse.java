@@ -1,4 +1,4 @@
-package de.skillix.keycloak.spi.userstorage;
+package de.skillix.keycloak.spi.userprovider;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class SkillixProfileApiResponse {
+public class SkillixUserApiResponse {
     private String uuid;
     private String email;
     private String firstName;

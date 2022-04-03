@@ -1,9 +1,7 @@
-package de.skillix.keycloak.spi.userstorage;
+package de.skillix.keycloak.spi.userprovider;
 
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.SerializationUtils;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
@@ -14,22 +12,29 @@ import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static de.skillix.keycloak.spi.userstorage.QueryParamUtils.parseQueryParams;
-import static de.skillix.keycloak.spi.userstorage.SkillixApiClient.getSkillixProfileByIdentity;
-import static de.skillix.keycloak.spi.userstorage.SkillixApiClient.searchSkillixProfiles;
+import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.parseQueryParams;
 
 @Slf4j
-@AllArgsConstructor
-public class SkillixUserStorageProvider
-    implements UserStorageProvider, UserLookupProvider.Streams, UserQueryProvider.Streams {
+public class SkillixUserProvider
+    implements UserStorageProvider,
+        // CredentialInputValidator,
+        // UserRegistrationProvider,
+        UserLookupProvider.Streams,
+        UserQueryProvider.Streams {
 
   private final KeycloakSession session;
   private final ComponentModel model;
+  private final SkillixApiClient apiClient;
+
+  public SkillixUserProvider(KeycloakSession session, ComponentModel model) {
+    this.session = session;
+    this.model = model;
+    this.apiClient = new DefaultSkillixApiClient(session, model);
+  }
 
   @Override
   public void close() {}
@@ -88,7 +93,7 @@ public class SkillixUserStorageProvider
     return Stream.empty();
   }
 
-  private UserModel mapToUserModel(RealmModel realm, SkillixProfileApiResponse apiResponse) {
+  private UserModel mapToUserModel(RealmModel realm, SkillixUserApiResponse apiResponse) {
     return new SkillixUserModel.Builder(session, realm, model, apiResponse.getUuid())
         .email(apiResponse.getEmail())
         .firstName(apiResponse.getFirstName())
@@ -100,17 +105,15 @@ public class SkillixUserStorageProvider
 
   @SneakyThrows
   private UserModel getSkillixUserModelByIdentity(RealmModel realm, String identity) {
-    HttpResponse<byte[]> httpResponse = getSkillixProfileByIdentity(identity);
-    if(httpResponse.statusCode() != 200) return null;
-    SkillixProfileApiResponse profile = SerializationUtils.deserialize(httpResponse.body());
+    SkillixUserApiResponse profile = apiClient.getSkillixProfileByIdentity(identity);
+    if (profile == null) return null;
     return mapToUserModel(realm, profile);
   }
 
   @SneakyThrows
   private Stream<UserModel> searchSkillixUserModelStream(RealmModel realm, String queryParams) {
-    HttpResponse<byte[]> httpResponse = searchSkillixProfiles(queryParams);
-    if(httpResponse.statusCode() != 200) return null;
-    List<SkillixProfileApiResponse> profiles = SerializationUtils.deserialize(httpResponse.body());
+    List<SkillixUserApiResponse> profiles = apiClient.searchSkillixProfiles(queryParams);
+    if (profiles == null || profiles.isEmpty()) return null;
     return profiles.stream().map(profile -> mapToUserModel(realm, profile));
   }
 }

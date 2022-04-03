@@ -1,4 +1,4 @@
-package de.skillix.keycloak.spi.userstorage;
+package de.skillix.keycloak.spi.userprovider;
 
 import lombok.Getter;
 import org.keycloak.common.util.MultivaluedHashMap;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-class SkillixUserModel extends AbstractUserAdapter {
+class SkillixUserModel extends AbstractUserAdapter.Streams {
 
   private final String uuid;
   private final String email;

@@ -1,4 +1,4 @@
-package de.skillix.keycloak.spi.userstorage;
+package de.skillix.keycloak.spi.userprovider;
 
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
