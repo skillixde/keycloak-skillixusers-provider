@@ -3,6 +3,7 @@ package de.skillix.keycloak.spi.userprovider;
 import lombok.Getter;
 import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
+import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
@@ -76,10 +77,20 @@ class SkillixUserAdapter extends AbstractUserAdapter.Streams {
   }
 
   @Override
+  protected Set<GroupModel> getGroupsInternal() {
+/*    if (skillixUser.getGroups() != null) {
+      return skillixUser.getGroups().stream().map(SkillixGroupModel::new).collect(Collectors.toSet());
+    }*/
+    return Set.of();
+  }
+
+  @Override
   protected Set<RoleModel> getRoleMappingsInternal() {
     if (skillixUser.getRoles() != null) {
-      return skillixUser.getRoles().stream()
-              .map(roleName -> new SkillixRoleModel(roleName, realm)).collect(Collectors.toSet());
+      return skillixUser.getRoles()
+              .stream()
+              .map(roleName -> new SkillixRoleModel(roleName, realm))
+              .collect(Collectors.toSet());
     }
     return Set.of();
   }

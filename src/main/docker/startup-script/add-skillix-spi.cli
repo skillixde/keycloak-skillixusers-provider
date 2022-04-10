@@ -1,0 +1,14 @@
+embed-server --server-config=standalone-ha.xml --std-out=echo
+
+batch
+
+/subsystem=keycloak-server/:list-add(name=providers,value="module:de.skillix.keycloak-skillixuser-provider.provider")
+
+/subsystem=keycloak-server/spi=skillixUserProvider:add
+/subsystem=keycloak-server/spi=skillixUserProvider/provider=default:add(enabled=true)
+/subsystem=keycloak-server/spi=skillixUserProvider/provider=email-prefix:add(properties={subjectPrefix => "${env.SUBJECT_PREFIX:KEYCLOAK}:"},enabled=true)
+/subsystem=keycloak-server/spi=skillixUserProvider:write-attribute(name=default-provider, value=skillix-user-provider)
+
+run-batch
+
+stop-embedded-server

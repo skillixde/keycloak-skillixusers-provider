@@ -8,8 +8,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT;
-import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT;
 
 class QueryParamUtilsTest {
 
@@ -71,7 +71,7 @@ class QueryParamUtilsTest {
     "https://api.skillix.de,1,info@mail.com"
   })
   void testSkillixGetProfileApiFormat(String baseUrl, String apiVersion, String identifier) {
-    String actual = String.format(SKILLIX_GET_PROFILE_API_FORMAT, baseUrl, apiVersion, identifier);
+    String actual = String.format(SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT, baseUrl, apiVersion, identifier);
     Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/profiles/" + identifier, actual);
   }
 
@@ -81,7 +81,7 @@ class QueryParamUtilsTest {
     "https://api.skillix.de,1,offset=100&size=50"
   })
   void testSkillixSearchProfilesApiFormat(String baseUrl, String apiVersion, String query) {
-    String actual = String.format(SKILLIX_SEARCH_PROFILES_API_FORMAT, baseUrl, apiVersion, query);
+    String actual = String.format(SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT, baseUrl, apiVersion, query);
     Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/profiles?" + query, actual);
   }
 }
