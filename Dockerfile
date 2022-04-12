@@ -1,6 +1,6 @@
-FROM jboss/keycloak:${version.keycloak}
+FROM jboss/keycloak:16.1.0
 
-COPY target/classes/startup-scripts/* /opt/jboss/startup-scripts/
-COPY target/*.jar /opt/jboss/keycloak/modules/de/skillix/keycloak-skillixusers-provider/provider/main/
-COPY target/classes/module.xml /opt/jboss/keycloak/modules/de/skillix/keycloak-skillixusers-provider/provider/main/
+COPY docker/startup-scripts/* /opt/jboss/startup-scripts/
+COPY build/libs/*.jar /opt/jboss/keycloak/standalone/deployments/
+#COPY docker/module.xml /opt/jboss/keycloak/modules/de/skillix/keycloak-skillixusers-provider/provider/main/
 
