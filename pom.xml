@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.skillix</groupId>
-    <artifactId>keycloak</artifactId>
+    <artifactId>keycloak-skillixuser-provider</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <description>Keycloak extension to provide Skillix User Federation</description>
+
+    <developers>
+        <developer>
+            <name>Achille Nan Chimi</name>
+            <organization>ApiDigit GmbH</organization>
+            <organizationUrl>https://apidigit.com</organizationUrl>
+            <timezone>+1</timezone>
+            <roles>
+                <role>Project Lead</role>
+                <role>CEO</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Sangamithra PON</name>
+            <organization>ApiDigit GmbH</organization>
+            <organizationUrl>https://apidigit.com</organizationUrl>
+            <roles>
+                <role>Senior Software Consultant</role>
+            </roles>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>11</maven.compiler.target>
@@ -18,7 +42,7 @@
     </properties>
 
     <build>
-        <finalName>skillix-user-provider</finalName>
+        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <directory>src/main/docker</directory>
@@ -60,7 +84,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>skillix/${project.artifactId}:${project.version}</name>
+                            <name>skillix/keycloak:${project.version}</name>
                             <build>
                                 <dockerFileDir>${project.basedir}</dockerFileDir>
                                 <noCache>true</noCache>
