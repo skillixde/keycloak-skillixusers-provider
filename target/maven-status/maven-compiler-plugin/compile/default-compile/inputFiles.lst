@@ -1,0 +1,10 @@
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixApiClientImpl.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixUserProvider.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/Constants.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixRoleModel.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixUser.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixUserAdapter.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/QueryParamUtils.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixUserProviderFactory.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixApiClient.java
+/Users/nanachimi/Workspace/skillix/keycloak-skillixusers-provider/src/main/java/de/skillix/keycloak/spi/userprovider/SkillixGroupModel.java
