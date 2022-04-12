@@ -1,11 +1,13 @@
 package de.skillix.keycloak.spi.userprovider;
 
 import lombok.SneakyThrows;
-import org.apache.commons.lang3.StringUtils;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import static org.keycloak.utils.StringUtil.isBlank;
+import static org.keycloak.utils.StringUtil.isNotBlank;
 
 public final class QueryParamUtils {
 
@@ -23,7 +25,7 @@ public final class QueryParamUtils {
   }
 
   public static String parseQueryParams(String attrName, String attrValue) {
-    if (StringUtils.isBlank(attrName) || StringUtils.isBlank(attrValue)) return "";
+    if (isBlank(attrName) || isBlank(attrValue)) return "";
     return attrName + "=" + attrValue;
   }
 
@@ -32,7 +34,7 @@ public final class QueryParamUtils {
     StringBuilder stringBuilder = new StringBuilder();
     boolean appendQuote = false;
 
-    if (StringUtils.isNotBlank(search)) {
+    if (isNotBlank(search)) {
       stringBuilder.append(search);
       appendQuote = true;
     }
@@ -53,4 +55,14 @@ public final class QueryParamUtils {
     }
     return stringBuilder.toString();
   }
+
+  public static boolean isNumeric(String string){
+    try {
+      Integer.parseInt(string);
+      return true;
+    }catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
 }

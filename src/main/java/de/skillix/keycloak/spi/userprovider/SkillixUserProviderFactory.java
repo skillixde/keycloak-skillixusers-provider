@@ -1,6 +1,5 @@
 package de.skillix.keycloak.spi.userprovider;
 
-import org.apache.commons.lang3.StringUtils;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.component.ComponentValidationException;
 import org.keycloak.models.KeycloakSession;
@@ -8,6 +7,7 @@ import org.keycloak.models.RealmModel;
 import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.provider.ProviderConfigurationBuilder;
 import org.keycloak.storage.UserStorageProviderFactory;
+import org.keycloak.utils.StringUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +22,8 @@ import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY;
+import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.isNumeric;
+import static org.keycloak.utils.StringUtil.isBlank;
 
 public class SkillixUserProviderFactory implements UserStorageProviderFactory<SkillixUserProvider> {
 
@@ -89,23 +91,26 @@ public class SkillixUserProviderFactory implements UserStorageProviderFactory<Sk
   public void validateConfiguration(
       KeycloakSession session, RealmModel realm, ComponentModel config)
       throws ComponentValidationException {
-    if (StringUtils.isBlank(config.get(SKILLIX_BASE_URL_KEY))) {
+    if (isBlank(config.get(SKILLIX_BASE_URL_KEY))) {
       throw new ComponentValidationException("Base URL for Skillix API must be provided");
     }
-    if (StringUtils.isBlank(config.get(BEARER_TOKEN_KEY))) {
+    if (isBlank(config.get(BEARER_TOKEN_KEY))) {
       throw new ComponentValidationException("Bearer token for Authorization must be provided");
     }
-    if (StringUtils.isBlank(config.get(SKILLIX_API_VERSION_KEY))) {
+    if (isBlank(config.get(SKILLIX_API_VERSION_KEY))) {
       throw new ComponentValidationException("Version of Skillix API must be provided");
     }
-    if (!StringUtils.isNumeric(config.get(SKILLIX_API_VERSION_KEY))) {
+    if (isBlank(config.get(SKILLIX_API_VERSION_KEY)) || !isNumeric(config.get(SKILLIX_API_VERSION_KEY))) {
       throw new ComponentValidationException("Version of Skillix API must be an integer");
     }
-    if (StringUtils.isBlank(config.get(SKILLIX_GET_PROFILE_API_FORMAT_KEY))) {
+    if (isBlank(config.get(SKILLIX_GET_PROFILE_API_FORMAT_KEY))) {
       throw new ComponentValidationException("GET profile URL format of Skillix API must be provided");
     }
-    if (StringUtils.isBlank(config.get(SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY))) {
+    if (isBlank(config.get(SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY))) {
       throw new ComponentValidationException("Search profile URL format of Skillix API must be provided");
     }
   }
+
+
+
 }
