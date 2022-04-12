@@ -1,7 +1,7 @@
 package de.skillix.keycloak.spi.userprovider;
 
 public final class Constants {
-  public static final String PROVIDER_ID = "skillix-user-provider";
+  public static final String PROVIDER_ID = "skillix";
   //Default Skillix APIs values
   public static final String SKILLIX_BASE_URL_DEFAULT = "https://api.skillix.dev";
   public static final String SKILLIX_API_VERSION_DEFAULT = "0";

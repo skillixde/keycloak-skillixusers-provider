@@ -43,6 +43,7 @@ public class SkillixApiClientImpl implements SkillixApiClient {
     @Override
     @SneakyThrows
     public SkillixUser getSkillixProfileByIdentity(String identity) {
+        log.info("GET Skillix profile by identity: {}", identity);
         String requestUrl = String.format(skillixGetProfileApiFormat, baseUrl, apiVersion, identity);
         return executeHttpGetRequest(requestUrl).asJson(SkillixUser.class);
     }
@@ -50,15 +51,18 @@ public class SkillixApiClientImpl implements SkillixApiClient {
     @Override
     @SneakyThrows
     public List<SkillixUser> searchSkillixProfiles(String queryParams) {
+        log.info("GET Skillix profiles by query: {}", queryParams);
         String requestUrl = String.format(skillixSearchProfilesApiFormat, baseUrl, apiVersion, queryParams);
         return executeHttpGetRequest(requestUrl).asJson(new TypeReference<>() {});
     }
 
     @SneakyThrows
     private Response executeHttpGetRequest(String url) {
+        log.info("executing HTTP GET request: {}", url);
         Response response = doGet(url, httpClient).auth(bearerToken).asResponse();
         if (response.getStatus() != 200) {
-            throw new WebApplicationException(response.getStatus());
+            RuntimeException cause = new RuntimeException("HTTP GET request was not successful: " + url);
+            throw new WebApplicationException(cause, response.getStatus());
         }
         return response;
     }
