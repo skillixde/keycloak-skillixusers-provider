@@ -1,0 +1,21 @@
+version: '2'
+services:
+  keycloak:
+    image: 'docker.io/skillix/keycloak'
+    ports:
+      - '8080:8080'
+    environment:
+      - KEYCLOAK_USER=nana0chimi
+      - KEYCLOAK_PASSWORD=4j3ymfnUL6HuequfIxvhN8zwe7utgp
+#      - KEYCLOAK_USER_FILE=
+#      - KEYCLOAK_PASSWORD_FILE=
+      - BD_USER=skillix0un
+      - DB_PASSWORD=skillix_pw
+#      - BD_USER_FILE=
+#      - DB_PASSWORD_FILE=
+#      - DB_VENDOR=postgres
+#      - DB_ADDR=skillix_un
+      - DB_VENDOR=h2
+      - DB_PORT=5432
+      - DB_DATABASE=skillix_iam_db
+      - DB_SCHEMA=skillix
