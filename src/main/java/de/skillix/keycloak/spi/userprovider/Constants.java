@@ -5,8 +5,8 @@ public final class Constants {
   //Default Skillix APIs values
   public static final String SKILLIX_BASE_URL_DEFAULT = "https://api.skillix.dev";
   public static final String SKILLIX_API_VERSION_DEFAULT = "0";
-  public static final String SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT = "%s/v%s/profiles/%s";
-  public static final String SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT = "%s/v%s/profiles?%s";
+  public static final String SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT = "%s/v%s/iam-profiles/%s";
+  public static final String SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT = "%s/v%s/iam-profile/search?%s";
   //Skillix Keys for Keycloak providers
   public static final String SKILLIX_BASE_URL_KEY = "skillixApiBaseUrl";
   public static final String BEARER_TOKEN_KEY = "skillixApiBearerToken";

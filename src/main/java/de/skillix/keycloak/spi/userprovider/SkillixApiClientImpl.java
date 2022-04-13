@@ -59,7 +59,8 @@ public class SkillixApiClientImpl implements SkillixApiClient {
     @SneakyThrows
     private Response executeHttpGetRequest(String url) {
         log.info("executing HTTP GET request: {}", url);
-        Response response = doGet(url, httpClient).auth(bearerToken).asResponse();
+        //Response response = doGet(url, httpClient).auth(bearerToken).asResponse();
+        Response response = doGet(url, httpClient).asResponse();
         if (response.getStatus() != 200) {
             RuntimeException cause = new RuntimeException("HTTP GET request was not successful: " + url);
             throw new WebApplicationException(cause, response.getStatus());
