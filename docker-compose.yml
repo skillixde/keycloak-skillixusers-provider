@@ -4,15 +4,13 @@ services:
     image: 'docker.io/skillix/keycloak'
     ports:
       - '8080:8080'
+    volumes:
+      - './secrets:/tmp'
     environment:
-      - KEYCLOAK_USER=nana0chimi
-      - KEYCLOAK_PASSWORD=4j3ymfnUL6HuequfIxvhN8zwe7utgp
-#      - KEYCLOAK_USER_FILE=
-#      - KEYCLOAK_PASSWORD_FILE=
-      - BD_USER=skillix0un
-      - DB_PASSWORD=skillix_pw
-#      - BD_USER_FILE=
-#      - DB_PASSWORD_FILE=
+      - KEYCLOAK_USER_FILE=/tmp/keycloak-admin-user.txt
+      - KEYCLOAK_PASSWORD_FILE=/tmp/keycloak-admin-password.txt
+      - BD_USER_FILE=/tmp/keycloak-db-user.txt
+      - DB_PASSWORD_FILE=/tmp/keycloak-db-password.txt
 #      - DB_VENDOR=postgres
 #      - DB_ADDR=skillix_un
       - DB_VENDOR=h2

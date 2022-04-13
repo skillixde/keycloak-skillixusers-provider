@@ -18,7 +18,9 @@ import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_BASE_URL_KE
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY;
+import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.formatQueryParams;
 import static org.keycloak.broker.provider.util.SimpleHttp.doGet;
+import static org.keycloak.utils.StringUtil.isBlank;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -44,7 +46,7 @@ public class SkillixApiClientImpl implements SkillixApiClient {
     @SneakyThrows
     public SkillixUser getSkillixProfileByIdentity(String identity) {
         log.info("GET Skillix profile by identity: {}", identity);
-        String requestUrl = String.format(skillixGetProfileApiFormat, baseUrl, apiVersion, identity);
+        String requestUrl = formatQueryParams(skillixGetProfileApiFormat, baseUrl, apiVersion, identity);
         return executeHttpGetRequest(requestUrl).asJson(SkillixUser.class);
     }
 
@@ -52,7 +54,7 @@ public class SkillixApiClientImpl implements SkillixApiClient {
     @SneakyThrows
     public List<SkillixUser> searchSkillixProfiles(String queryParams) {
         log.info("GET Skillix profiles by query: {}", queryParams);
-        String requestUrl = String.format(skillixSearchProfilesApiFormat, baseUrl, apiVersion, queryParams);
+        String requestUrl = formatQueryParams(skillixSearchProfilesApiFormat, baseUrl, apiVersion, queryParams);
         return executeHttpGetRequest(requestUrl).asJson(new TypeReference<>() {});
     }
 

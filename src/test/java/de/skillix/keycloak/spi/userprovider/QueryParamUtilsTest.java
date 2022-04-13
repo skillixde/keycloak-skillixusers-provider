@@ -10,6 +10,7 @@ import java.util.Map;
 
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT;
+import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.formatQueryParams;
 
 class QueryParamUtilsTest {
 
@@ -72,7 +73,7 @@ class QueryParamUtilsTest {
   })
   void testSkillixGetProfileApiFormat(String baseUrl, String apiVersion, String identifier) {
     String actual = String.format(SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT, baseUrl, apiVersion, identifier);
-    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/profiles/" + identifier, actual);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile/" + identifier, actual);
   }
 
   @ParameterizedTest
@@ -81,7 +82,38 @@ class QueryParamUtilsTest {
     "https://api.skillix.de,1,offset=100&size=50"
   })
   void testSkillixSearchProfilesApiFormat(String baseUrl, String apiVersion, String query) {
-    String actual = String.format(SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT, baseUrl, apiVersion, query);
-    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/profiles?" + query, actual);
+    String actual = formatQueryParams(SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT, baseUrl, apiVersion, query);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile/search?" + query, actual);
   }
+
+  @ParameterizedTest
+  @CsvSource({
+          "https://api.skillix.dev,0,",
+          "https://api.skillix.de,1,"
+  })
+  void testSkillixSearchProfilesApiFormatWhenQueryIsEmpty(String baseUrl, String apiVersion, String query) {
+    String actual = formatQueryParams(SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT, baseUrl, apiVersion, query);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile/search", actual);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+          "https://api.skillix.dev,0,1889283923",
+          "https://api.skillix.de,1,test@mail.de"
+  })
+  void testSkillixGetProfilesApiFormat(String baseUrl, String apiVersion, String identity) {
+    String actual = formatQueryParams(SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT, baseUrl, apiVersion, identity);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile/" + identity, actual);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+          "https://api.skillix.dev,0,",
+          "https://api.skillix.de,1,"
+  })
+  void testSkillixGetProfilesApiFormatWhen(String baseUrl, String apiVersion, String identity) {
+    String actual = formatQueryParams(SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT, baseUrl, apiVersion, identity);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile", actual);
+  }
+
 }

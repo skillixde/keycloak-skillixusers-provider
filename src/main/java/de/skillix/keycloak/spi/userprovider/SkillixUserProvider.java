@@ -115,9 +115,95 @@ public class SkillixUserProvider
   }
 
   @Override
+  public int getUsersCount(String search, RealmModel realm) {
+    log.info("getUsersCount(search:{}, realm) called", search);
+    return 30;
+  }
+
+  @Override
+  public int getUsersCount(RealmModel realm, Map<String, String> params) {
+    log.info("getUsersCount(realm, params) called");
+    return 1000;
+  }
+
+  @Override
+  public int getUsersCount(Map<String, String> params, RealmModel realm) {
+    log.info("getUsersCount(params, realm) called");
+    return 40;
+  }
+
+  @Override
+  public List<UserModel> getUsers(RealmModel realm, int firstResult, int maxResults) {
+    log.info("getUsers(realm, firstResult:{}, maxResults:{}) called", firstResult, maxResults);
+    String queryParams = parseQueryParams(null, firstResult, maxResults);
+    return apiClient.searchSkillixProfiles(queryParams)
+            .stream()
+            .map(skillixUser -> mapToUserModel(realm, skillixUser))
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<UserModel> searchForUser(String search, RealmModel realm, int firstResult, int maxResults) {
+    log.info("searchForUser(search:{}, realm, firstResult:{}, maxResults:{}) called", search, firstResult, maxResults);
+    String queryParams = parseQueryParams(search, firstResult, maxResults);
+    return apiClient.searchSkillixProfiles(queryParams)
+            .stream()
+            .map(skillixUser -> mapToUserModel(realm, skillixUser))
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
+    log.info("searchForUser(params, realm");
+    String queryParams = parseQueryParams(params);
+    return apiClient.searchSkillixProfiles(queryParams)
+            .stream()
+            .map(skillixUser -> mapToUserModel(realm, skillixUser))
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm, int firstResult, int maxResults) {
+    log.info("searchForUser(params, realm, firstResult:{}, maxResults:{}) called", firstResult, maxResults);
+    String queryParams = parseQueryParams(params);
+    return apiClient.searchSkillixProfiles(queryParams)
+            .stream()
+            .map(skillixUser -> mapToUserModel(realm, skillixUser))
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public int getUsersCount(RealmModel realm) {
+    log.info("getUsersCount(realm");
+    return 1000;
+  }
+
+  @Override
+  public int getUsersCount(RealmModel realm, boolean includeServiceAccount) {
+    log.info("getUsersCount(realm, includeServiceAccount:{}) called", includeServiceAccount);
+    return 500;
+  }
+
+  @Override
+  public List<UserModel> searchForUser(String search, RealmModel realm) {
+    log.info("searchForUser(search:{}, realm) called", search);
+    return apiClient.searchSkillixProfiles(search)
+            .stream()
+            .map(skillixUser -> mapToUserModel(realm, skillixUser))
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
+    log.info("searchForUserByUserAttribute(attrName:{}, attrValue:{}, realm) called", attrName, attrValue);
+    String search = parseQueryParams(attrName, attrValue);
+    return UserQueryProvider.Streams.super.searchForUserByUserAttribute(attrName, attrValue, realm);
+  }
+
+  @Override
   public List<UserModel> getUsers(RealmModel realm) {
     log.info("getUsers(realm) called");
-    return apiClient.searchSkillixProfiles("offset=0&size=100")
+    return apiClient.searchSkillixProfiles("offset=0&size=10000")
             .stream()
             .map(skillixUser -> mapToUserModel(realm, skillixUser))
             .collect(Collectors.toList());
@@ -126,7 +212,7 @@ public class SkillixUserProvider
   @Override
   public Stream<UserModel> getUsersStream(RealmModel realm) {
     log.info("getUsersStream(realm) called");
-    return apiClient.searchSkillixProfiles("offset=0&size=100")
+    return apiClient.searchSkillixProfiles("offset=0&size=10000")
             .stream()
             .map(skillixUser -> mapToUserModel(realm, skillixUser));
   }

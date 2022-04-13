@@ -111,6 +111,4 @@ public class SkillixUserProviderFactory implements UserStorageProviderFactory<Sk
     }
   }
 
-
-
 }
