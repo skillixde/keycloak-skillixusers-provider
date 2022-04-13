@@ -7,4 +7,5 @@ public interface SkillixApiClient {
   SkillixUser getSkillixProfileByIdentity(String identity);
 
   List<SkillixUser> searchSkillixProfiles(String queryParams);
+
 }

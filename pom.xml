@@ -10,7 +10,7 @@
 
     <developers>
         <developer>
-            <name>Achille Nan Chimi</name>
+            <name>Achille NANA CHIMI</name>
             <organization>ApiDigit GmbH</organization>
             <organizationUrl>https://apidigit.com</organizationUrl>
             <timezone>+1</timezone>
@@ -23,6 +23,7 @@
             <name>Sangamithra PON</name>
             <organization>ApiDigit GmbH</organization>
             <organizationUrl>https://apidigit.com</organizationUrl>
+            <timezone>+1</timezone>
             <roles>
                 <role>Senior Software Consultant</role>
             </roles>

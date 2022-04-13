@@ -14,7 +14,6 @@ import org.keycloak.storage.user.UserQueryProvider;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,15 +31,10 @@ public class SkillixUserProvider
   private final ComponentModel model;
   private final SkillixApiClient apiClient;
 
-  private long offset; //TODO not sure but maybe we can update this value at runtime
-  private int size; //TODO not sure but maybe we can update this value at runtime
-
   public SkillixUserProvider(KeycloakSession session, ComponentModel model) {
     this.session = session;
     this.model = model;
     this.apiClient = new SkillixApiClientImpl(session, model);
-    offset = 0;
-    size = 19;
   }
 
   @Override

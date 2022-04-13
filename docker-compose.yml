@@ -11,9 +11,9 @@ services:
       - KEYCLOAK_PASSWORD_FILE=/tmp/keycloak-admin-password.txt
       - BD_USER_FILE=/tmp/keycloak-db-user.txt
       - DB_PASSWORD_FILE=/tmp/keycloak-db-password.txt
+      - DB_VENDOR=h2
 #      - DB_VENDOR=postgres
 #      - DB_ADDR=skillix_un
-      - DB_VENDOR=h2
       - DB_PORT=5432
       - DB_DATABASE=skillix_iam_db
       - DB_SCHEMA=skillix
