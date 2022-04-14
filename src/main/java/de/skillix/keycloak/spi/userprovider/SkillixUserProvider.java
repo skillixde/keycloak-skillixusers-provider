@@ -117,7 +117,9 @@ public class SkillixUserProvider
   @Override
   public int getUsersCount(RealmModel realm, Map<String, String> params) {
     log.info("getUsersCount(realm, params) called");
-    return 1000;
+    String queryParams = parseQueryParams(params);
+    UserCounter counter = apiClient.countUsers(queryParams);
+    return counter.getTotal(); //TODO
   }
 
   @Override

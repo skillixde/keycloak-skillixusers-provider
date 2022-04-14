@@ -15,8 +15,8 @@
             <organizationUrl>https://apidigit.com</organizationUrl>
             <timezone>+1</timezone>
             <roles>
-                <role>Project Lead</role>
                 <role>CEO</role>
+                <role>Project Lead</role>
             </roles>
         </developer>
         <developer>
@@ -25,7 +25,7 @@
             <organizationUrl>https://apidigit.com</organizationUrl>
             <timezone>+1</timezone>
             <roles>
-                <role>Senior Software Consultant</role>
+                <role>Senior Software Engineer Consultant</role>
             </roles>
         </developer>
     </developers>

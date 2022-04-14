@@ -16,6 +16,7 @@ import java.util.List;
 import static de.skillix.keycloak.spi.userprovider.Constants.BEARER_TOKEN_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_BASE_URL_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_COUNT_PROFILES_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.formatQueryParams;
@@ -32,6 +33,7 @@ public class SkillixApiClientImpl implements SkillixApiClient {
     private final String bearerToken;
     private final String skillixGetProfileApiFormat;
     private final String skillixSearchProfilesApiFormat;
+    private final String skillixCountProfilesApiFormat;
 
     public SkillixApiClientImpl(KeycloakSession session, ComponentModel model){
         this.httpClient = session.getProvider(HttpClientProvider.class).getHttpClient();
@@ -40,6 +42,7 @@ public class SkillixApiClientImpl implements SkillixApiClient {
         this.bearerToken = model.get(BEARER_TOKEN_KEY);
         this.skillixGetProfileApiFormat = model.get(SKILLIX_GET_PROFILE_API_FORMAT_KEY);
         this.skillixSearchProfilesApiFormat = model.get(SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY);
+        this.skillixCountProfilesApiFormat = model.get(SKILLIX_COUNT_PROFILES_API_FORMAT_KEY);
     }
 
     @Override
@@ -56,6 +59,14 @@ public class SkillixApiClientImpl implements SkillixApiClient {
         log.info("GET Skillix profiles by query: {}", queryParams);
         String requestUrl = formatQueryParams(skillixSearchProfilesApiFormat, baseUrl, apiVersion, queryParams);
         return executeHttpGetRequest(requestUrl).asJson(new TypeReference<>() {});
+    }
+
+    @Override
+    @SneakyThrows
+    public UserCounter countUsers(String queryParams) {
+        log.info("GET Skillix profiles by query: {}", queryParams);
+        String requestUrl = formatQueryParams(skillixCountProfilesApiFormat, baseUrl, apiVersion, queryParams);
+        return executeHttpGetRequest(requestUrl).asJson(UserCounter.class);
     }
 
     @SneakyThrows

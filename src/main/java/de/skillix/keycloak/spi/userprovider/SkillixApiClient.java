@@ -8,4 +8,5 @@ public interface SkillixApiClient {
 
   List<SkillixUser> searchSkillixProfiles(String queryParams);
 
+  UserCounter countUsers(String queryParams);
 }

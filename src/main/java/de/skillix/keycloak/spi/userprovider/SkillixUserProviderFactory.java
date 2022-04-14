@@ -18,6 +18,8 @@ import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_BASE_URL_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_BASE_URL_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_COUNT_PROFILES_API_FORMAT_DEFAULT;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_COUNT_PROFILES_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT;
@@ -69,7 +71,7 @@ public class SkillixUserProviderFactory implements UserStorageProviderFactory<Sk
         .property(
             SKILLIX_GET_PROFILE_API_FORMAT_KEY,
             "GET Profile URL Format",
-            "The format of GET profile URL. "
+            "The format of GET profile API URL. "
                 + "Three placeholders (symbolized by %s) are expected: "
                 + "base url, version and user identifier",
             ProviderConfigProperty.STRING_TYPE,
@@ -78,11 +80,20 @@ public class SkillixUserProviderFactory implements UserStorageProviderFactory<Sk
         .property(
             SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY,
             "Search Profiles URL Format",
-            "The format of search profiles URL. "
+            "The format of search profiles API URL. "
                 + "Three placeholders (symbolized by %s) are expected: "
                 + "base url, version and query parameters",
             ProviderConfigProperty.STRING_TYPE,
                 SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT,
+            Collections.emptyList())
+        .property(
+            SKILLIX_COUNT_PROFILES_API_FORMAT_KEY,
+            "Count Profiles URL Format",
+            "The format of count profiles API URL. "
+                + "Three placeholders (symbolized by %s) are expected: "
+                + "base url, version and query parameters",
+            ProviderConfigProperty.STRING_TYPE,
+                SKILLIX_COUNT_PROFILES_API_FORMAT_DEFAULT,
             Collections.emptyList())
         .build();
   }

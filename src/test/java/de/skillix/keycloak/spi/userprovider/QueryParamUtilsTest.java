@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.HashMap;
 import java.util.Map;
 
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_COUNT_PROFILES_API_FORMAT_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_DEFAULT;
 import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.formatQueryParams;
@@ -111,9 +112,28 @@ class QueryParamUtilsTest {
           "https://api.skillix.dev,0,",
           "https://api.skillix.de,1,"
   })
-  void testSkillixGetProfilesApiFormatWhen(String baseUrl, String apiVersion, String identity) {
+  void testSkillixGetProfilesApiFormatWhenIdentityIsEmpty(String baseUrl, String apiVersion, String identity) {
     String actual = formatQueryParams(SKILLIX_GET_PROFILE_API_FORMAT_DEFAULT, baseUrl, apiVersion, identity);
     Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile", actual);
   }
 
+  @ParameterizedTest
+  @CsvSource({
+          "https://api.skillix.dev,0,offset=100&size=50",
+          "https://api.skillix.de,1,size=50&offset=100"
+  })
+  void testSkillixCountProfilesApiFormat(String baseUrl, String apiVersion, String queryParams) {
+    String actual = formatQueryParams(SKILLIX_COUNT_PROFILES_API_FORMAT_DEFAULT, baseUrl, apiVersion, queryParams);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile/count?" + queryParams, actual);
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+          "https://api.skillix.dev,0,",
+          "https://api.skillix.de,1,"
+  })
+  void testSkillixCountProfilesApiFormatWhenQueryParamsIsEmpty(String baseUrl, String apiVersion, String queryParams) {
+    String actual = formatQueryParams(SKILLIX_COUNT_PROFILES_API_FORMAT_DEFAULT, baseUrl, apiVersion, queryParams);
+    Assertions.assertEquals(baseUrl + "/v" + apiVersion + "/iam-profile/count" , actual);
+  }
 }
