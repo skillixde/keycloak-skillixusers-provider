@@ -119,7 +119,7 @@ public class SkillixUserProvider
     log.info("getUsersCount(realm, params) called");
     String queryParams = parseQueryParams(params);
     UserCounter counter = apiClient.countUsers(queryParams);
-    return counter.getTotal(); //TODO
+    return counter.getTotal();
   }
 
   @Override
