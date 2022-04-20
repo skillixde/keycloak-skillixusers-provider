@@ -1,17 +1,15 @@
 package de.skillix.keycloak.spi.userprovider;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserCounter {
     private int totalCount;
-    //private Date timestamp;
-    //private String query;
+    private ZonedDateTime timestamp;
 }

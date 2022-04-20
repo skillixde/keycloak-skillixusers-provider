@@ -98,29 +98,11 @@ public class SkillixUserProvider implements UserStorageProvider, UserLookupProvi
   }
 
   @Override
-  public int getUsersCount(RealmModel realm, String search) {
-    log.info("getUsersCount(realm, search:{}) called", search);
-    return 100;
-  }
-
-  @Override
-  public int getUsersCount(String search, RealmModel realm) {
-    log.info("getUsersCount(search:{}, realm) called", search);
-    return 30;
-  }
-
-  @Override
   public int getUsersCount(RealmModel realm, Map<String, String> params) {
     log.info("getUsersCount(realm, params) called");
     String queryParams = parseQueryParams(params);
     UserCounter counter = apiClient.countUsers(queryParams);
     return counter.getTotalCount();
-  }
-
-  @Override
-  public int getUsersCount(Map<String, String> params, RealmModel realm) {
-    log.info("getUsersCount(params, realm) called");
-    return 40;
   }
 
   @Override
@@ -164,18 +146,6 @@ public class SkillixUserProvider implements UserStorageProvider, UserLookupProvi
   }
 
   @Override
-  public int getUsersCount(RealmModel realm) {
-    log.info("getUsersCount(realm");
-    return 1000;
-  }
-
-  @Override
-  public int getUsersCount(RealmModel realm, boolean includeServiceAccount) {
-    log.info("getUsersCount(realm, includeServiceAccount:{}) called", includeServiceAccount);
-    return 500;
-  }
-
-  @Override
   public List<UserModel> searchForUser(String search, RealmModel realm) {
     log.info("searchForUser(search:{}, realm) called", search);
     return apiClient.searchSkillixProfiles(search)
@@ -188,13 +158,16 @@ public class SkillixUserProvider implements UserStorageProvider, UserLookupProvi
   public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
     log.info("searchForUserByUserAttribute(attrName:{}, attrValue:{}, realm) called", attrName, attrValue);
     String search = parseQueryParams(attrName, attrValue);
-    return UserQueryProvider.Streams.super.searchForUserByUserAttribute(attrName, attrValue, realm);
+    return apiClient.searchSkillixProfiles(search)
+            .stream()
+            .map(skillixUser -> mapToUserModel(realm, skillixUser))
+            .collect(Collectors.toList());
   }
 
   @Override
   public List<UserModel> getUsers(RealmModel realm) {
     log.info("getUsers(realm) called");
-    return apiClient.searchSkillixProfiles("offset=0&size=10000")
+    return apiClient.searchSkillixProfiles(null)
             .stream()
             .map(skillixUser -> mapToUserModel(realm, skillixUser))
             .collect(Collectors.toList());
@@ -203,7 +176,7 @@ public class SkillixUserProvider implements UserStorageProvider, UserLookupProvi
   @Override
   public Stream<UserModel> getUsersStream(RealmModel realm) {
     log.info("getUsersStream(realm) called");
-    return apiClient.searchSkillixProfiles("offset=0&size=10000")
+    return apiClient.searchSkillixProfiles(null)
             .stream()
             .map(skillixUser -> mapToUserModel(realm, skillixUser));
   }

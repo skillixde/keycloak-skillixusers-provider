@@ -7,7 +7,6 @@ import org.keycloak.models.RealmModel;
 import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.provider.ProviderConfigurationBuilder;
 import org.keycloak.storage.UserStorageProviderFactory;
-import org.keycloak.utils.StringUtil;
 
 import java.util.Collections;
 import java.util.List;
