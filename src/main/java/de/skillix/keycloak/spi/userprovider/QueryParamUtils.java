@@ -35,7 +35,7 @@ public final class QueryParamUtils {
         boolean appendQuote = false;
 
         if (isNotBlank(search)) {
-            stringBuilder.append("query=");
+            if(!search.contains("=")) stringBuilder.append("query=");
             stringBuilder.append(search);
             appendQuote = true;
         }
