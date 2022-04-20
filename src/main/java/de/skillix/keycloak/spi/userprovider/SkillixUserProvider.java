@@ -20,12 +20,7 @@ import java.util.stream.Stream;
 import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.parseQueryParams;
 
 @Slf4j
-public class SkillixUserProvider
-    implements UserStorageProvider,
-        // CredentialInputValidator,
-        // UserRegistrationProvider,
-        UserLookupProvider.Streams,
-        UserQueryProvider.Streams {
+public class SkillixUserProvider implements UserStorageProvider, UserLookupProvider.Streams, UserQueryProvider.Streams {
 
   private final KeycloakSession session;
   private final ComponentModel model;

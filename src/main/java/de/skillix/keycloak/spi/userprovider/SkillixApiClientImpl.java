@@ -14,14 +14,13 @@ import javax.ws.rs.WebApplicationException;
 import java.util.List;
 
 import static de.skillix.keycloak.spi.userprovider.Constants.BEARER_TOKEN_KEY;
-import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_BASE_URL_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_API_VERSION_KEY;
+import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_BASE_URL_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_COUNT_PROFILES_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_GET_PROFILE_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.Constants.SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY;
 import static de.skillix.keycloak.spi.userprovider.QueryParamUtils.formatQueryParams;
 import static org.keycloak.broker.provider.util.SimpleHttp.doGet;
-import static org.keycloak.utils.StringUtil.isBlank;
 
 @Slf4j
 @RequiredArgsConstructor
