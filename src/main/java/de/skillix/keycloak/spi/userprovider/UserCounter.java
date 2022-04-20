@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserCounter {
-    private int total;
-    private Date timestamp;
-    private String query;
+    private int totalCount;
+    //private Date timestamp;
+    //private String query;
 }

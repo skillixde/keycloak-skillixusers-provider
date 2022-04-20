@@ -114,7 +114,7 @@ public class SkillixUserProvider implements UserStorageProvider, UserLookupProvi
     log.info("getUsersCount(realm, params) called");
     String queryParams = parseQueryParams(params);
     UserCounter counter = apiClient.countUsers(queryParams);
-    return counter.getTotal();
+    return counter.getTotalCount();
   }
 
   @Override
