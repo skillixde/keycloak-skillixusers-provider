@@ -120,6 +120,9 @@ public class SkillixUserProviderFactory implements UserStorageProviderFactory<Sk
     if (isBlank(config.get(SKILLIX_SEARCH_PROFILES_API_FORMAT_KEY))) {
       throw new ComponentValidationException("Search profile URL format of Skillix API must be provided");
     }
+    if (isBlank(config.get(SKILLIX_COUNT_PROFILES_API_FORMAT_KEY))) {
+      throw new ComponentValidationException("Count profile URL format of Skillix API must be provided");
+    }
   }
 
 }
